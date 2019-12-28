@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://liuy0424.github.io/"/>
   <updated>2019-12-27T13:08:56.605Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://liuy0424.github.io/</id>
   
   <author>
     <name>LiuY</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>my first test</title>
-    <link href="http://yoursite.com/2019/12/27/my%20first%20test/"/>
-    <id>http://yoursite.com/2019/12/27/my%20first%20test/</id>
+    <link href="https://liuy0424.github.io/2019/12/27/my%20first%20test/"/>
+    <id>https://liuy0424.github.io/2019/12/27/my%20first%20test/</id>
     <published>2019-12-27T13:07:49.001Z</published>
     <updated>2019-12-27T13:08:56.605Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/12/24/hello-world/"/>
-    <id>http://yoursite.com/2019/12/24/hello-world/</id>
+    <link href="https://liuy0424.github.io/2019/12/24/hello-world/"/>
+    <id>https://liuy0424.github.io/2019/12/24/hello-world/</id>
     <published>2019-12-24T14:15:41.655Z</published>
     <updated>2019-12-24T14:15:41.655Z</updated>
     
