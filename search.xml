@@ -8,7 +8,7 @@
       <link href="/2019/12/28/test3/"/>
       <url>/2019/12/28/test3/</url>
       
-        <content type="html"><![CDATA[<p>随便写点什么</p>]]></content>
+        <content type="html"><![CDATA[<pre><code class="python">print(&#39;hello, world!&#39;&#39;)</code></pre>]]></content>
       
       
       <categories>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuy0424.github.io/"/>
-  <updated>2019-12-28T02:57:05.503Z</updated>
+  <updated>2019-12-28T06:02:20.644Z</updated>
   <id>https://liuy0424.github.io/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="https://liuy0424.github.io/2019/12/28/test3/"/>
     <id>https://liuy0424.github.io/2019/12/28/test3/</id>
     <published>2019-12-28T02:30:45.204Z</published>
-    <updated>2019-12-28T02:57:05.503Z</updated>
+    <updated>2019-12-28T06:02:20.644Z</updated>
     
-    <content type="html"><![CDATA[<p>随便写点什么</p>]]></content>
+    <content type="html"><![CDATA[<pre><code class="python">print(&#39;hello, world!&#39;&#39;)</code></pre>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;随便写点什么&lt;/p&gt;
+        &lt;pre&gt;&lt;code class=&quot;python&quot;&gt;print(&amp;#39;hello, world!&amp;#39;&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 
       
     
