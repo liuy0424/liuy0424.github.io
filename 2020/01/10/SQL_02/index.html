@@ -177,7 +177,7 @@ SELECT product_name, sale_price,purchase_price
 <p>注： <code>AND</code> 运算符高于 <code>OR</code></p>
 </blockquote>
 <h4 id="含有-NULL-时的真值"><a href="#含有-NULL-时的真值" class="headerlink" title="含有 NULL 时的真值"></a>含有 NULL 时的真值</h4><p>正常来说，NULL 不应参与逻辑运算。因为NULL 即不是True, 也不是False。</p>
-<p>如果NULL参与了运算，那么规则如下：</p>
+<p>如果NULL参与了运算，那么规则如下：<br>AND:</p>
 <table>
 <thead>
 <tr>
@@ -206,9 +206,12 @@ SELECT product_name, sale_price,purchase_price
 <td align="center">False</td>
 <td align="center">False</td>
 </tr>
+<tr>
+<td align="center">OR:</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
 </tbody></table>
-<br>
-
 <table>
 <thead>
 <tr>
