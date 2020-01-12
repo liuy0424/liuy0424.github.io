@@ -60,11 +60,67 @@
 <blockquote>
 <p>运算是以 行 为单位执行的</p>
 </blockquote>
-<p>SQL的算术运算符包括：<br>|运算符|含义|<br>|:–:|:–:|<br>|+|加法|<br>|-|减法|<br>|*|乘法|<br>|/|除法|</p>
+<p>SQL的算术运算符包括：</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+</td>
+<td align="center">加法</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">减法</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">乘法</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">除法</td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>所有包含NULL 的计算，结果都是 <strong>NULL</strong></p>
 </blockquote>
-<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>SQL 比较运算符包括：<br>|运算符|含义|<br>|:–:|:–:|<br>|=|等于|<br>|&lt;&gt;|不等于|<br>|&gt;=|大于等于|<br>|&gt;|大于|<br>|&lt;=|小于等于|<br>|&lt;|小于|</p>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>SQL 比较运算符包括：</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">=</td>
+<td align="center">等于</td>
+</tr>
+<tr>
+<td align="center">&lt;&gt;</td>
+<td align="center">不等于</td>
+</tr>
+<tr>
+<td align="center">&gt;=</td>
+<td align="center">大于等于</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">大于</td>
+</tr>
+<tr>
+<td align="center">&lt;=</td>
+<td align="center">小于等于</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于</td>
+</tr>
+</tbody></table>
 <p>示例：选取出销售单价大于等于1000的记录</p>
 <pre><code class="sql">SELECT product_name, sale_price,sale_price
     FROM product
@@ -121,7 +177,36 @@ SELECT product_name, sale_price,purchase_price
 <p>注： <code>AND</code> 运算符高于 <code>OR</code></p>
 </blockquote>
 <h4 id="含有-NULL-时的真值"><a href="#含有-NULL-时的真值" class="headerlink" title="含有 NULL 时的真值"></a>含有 NULL 时的真值</h4><p>正常来说，NULL 不应参与逻辑运算。因为NULL 即不是True, 也不是False。</p>
-<p>如果NULL参与了运算，那么规则如下：<br>|逻辑值1|逻辑值2|AND 结果|<br>|:–:|:–:|:–:|<br>|True|NULL|NULL<br>|False|NULL|False<br>|NULL|True|NULL<br>|NULL|False|False</p>
+<p>如果NULL参与了运算，那么规则如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">逻辑值1</th>
+<th align="center">逻辑值2</th>
+<th align="center">AND 结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">True</td>
+<td align="center">NULL</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">False</td>
+<td align="center">NULL</td>
+<td align="center">False</td>
+</tr>
+<tr>
+<td align="center">NULL</td>
+<td align="center">True</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">NULL</td>
+<td align="center">False</td>
+<td align="center">False</td>
+</tr>
+</tbody></table>
 <br>
 
 <table>
