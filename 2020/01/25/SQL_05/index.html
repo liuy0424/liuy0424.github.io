@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>SQL 基础 (05) | LiuY</title><link rel="stylesheet" type="text/css" href="/css/style.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.png"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="LiuY" type="application/atom+xml">
+</head><link rel="stylesheet" type="text/css" href="/css/customize.css"><link rel="stylesheet" type="text/css" href="/plugins/prettify/doxy.css"><script type="text/javascript" src="/js/ready.js" async></script><body><div class="mobile-head" id="mobile-head"><div class="navbar-icon"><span></span><span></span><span></span></div><div class="navbar-title"><a href="/">LITREILY</a></div><div class="navbar-search"><!--= show a circle here--></div></div><div class="h-wrapper" id="menu"><nav class="h-head box"><div class="m-hdimg"><a class="hdimg img" href="/"><img class="nofancybox" src="/img/profile.jpg" width="128" height="128"></a><h1 class="ttl"><a href="/">LiuY</a></h1></div><p class="m-desc">事闲勿荒，事繁勿慌，<br>取象于钱，外圆内方。</p><div class="m-nav"><ul><li><span class="dot">●</span><a href="/archives/">归档</a></li><li><span class="dot">●</span><a href="/categories/">分类</a></li><li><span class="dot">●</span><a href="/tags/">标签</a></li><li><span class="dot">●</span><a href="/about/">关于</a></li><li><span class="dot">●</span><a href="/atom.xml">RSS</a></li><li class="m-sch"><form class="form" id="j-formsch" method="get"><input class="txt" type="text" id="local-search-input" name="q" value="搜索" onfocus="if(this.value=='搜索'){this.value='';}" onblur="if(this.value==''){this.value='搜索';}"><input type="text" style="display:none;"></form></li></ul><div id="local-search-result"></div></div></nav></div><div id="back2Top"><a class="fa fa-arrow-up" title="Back to top" href="#"></a></div><div class="box" id="container"><div class="l-wrapper"><div class="l-content box"><div class="l-post l-post-art"><article class="p-art"><div class="p-header box"><h1 class="p-title">SQL 基础 (05)</h1><div class="p-info"><span class="p-date"><i class="fa fa-calendar"></i><a href="/2020/01/25/SQL_05/">2020-01-25</a></span><span class="p-category"><i class="fa fa-folder"></i><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span><span class="p-view" id="busuanzi_container_page_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_page_pv"></span></span></div></div><div class="p-content"><font face="微软雅黑">
+
+<h2 id="复杂查询"><a href="#复杂查询" class="headerlink" title="复杂查询"></a>复杂查询</h2><p><strong>目录：</strong></p>
+<ol>
+<li><p>视图<br> 1.1  <a href="#S11">视图和表</a><br> 1.2  <a href="#S12">创建视图的方法</a><br> 1.3  <a href="#S13">视图的限制</a><br> 1.4  <a href="#S15">删除视图</a></p>
+</li>
+<li><p>子查询<br> 2.1  <a href="#S21">子查询和视图</a><br> 2.2  <a href="#S23">标量子查询</a><br> 2.3  <a href="#S24">标量子查询的书写位置</a></p>
+</li>
+<li><p>关联子查询<br> 3.1  <a href="#S31">普通子查询和关联子查询的区别</a></p>
+</li>
+</ol>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><h4 id="视图和表"><a href="#视图和表" class="headerlink" title="视图和表  "></a>视图和表 <a name = "S11" > </a></h4><p><strong>视图</strong>： 从SQL角度来看，视图就是一张表。<br>视图和表的区别在于，视图不实际保存数据。实际上视图保存的是SQL语句。<br>视图的优点：<br>    - 由于视图无需保存数据，因此可以节省存储设备的容量。<br>    - 将频繁使用的SELECT 语句保存成视图，不用每次重新书写。</p>
+<h4 id="创建视图的方法"><a href="#创建视图的方法" class="headerlink" title="创建视图的方法  "></a>创建视图的方法 <a name = "S12" > </a></h4><p>语法：</p>
+<pre><code class="sql">CREATE VIEW 视图名称 (&lt;视图列名1&gt;, &lt;视图列名2&gt;,...)
+AS
+&lt;SELECT语句&gt;</code></pre>
+<p>示例：创建ProductSum视图</p>
+<pre><code class="sql">CREATE VIEW ProductSum (product_type, cnt_product)
+AS
+    SELECT product_type, count(*)
+    FROM PRODUCT
+    GROUP BY product_type;</code></pre>
+<blockquote>
+<p>应该避免在视图的基础上创建视图（多重视图，会降低SQL性能）</p>
+</blockquote>
+<h4 id="视图的限制"><a href="#视图的限制" class="headerlink" title="视图的限制  "></a>视图的限制 <a name = "S13" > </a></h4><ul>
+<li>定义视图时不要使用ORDER BY 子句</li>
+<li>通过汇总得到的视图无法更新</li>
+<li>没有聚合和组合的查询构成的视图可以更新。</li>
+</ul>
+<h4 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图  "></a>删除视图 <a name = "S15" > </a></h4><p>语法：</p>
+<pre><code class="sql">DROP VIEW 视图名称 (&lt;视图列名1&gt;, &lt;视图列名2&gt;, ......);</code></pre>
+<p>示例：</p>
+<pre><code class="sql">DROP VIEW ProductSum;</code></pre>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><h4 id="子查询和视图"><a href="#子查询和视图" class="headerlink" title="子查询和视图  "></a>子查询和视图 <a name = "S21" > </a></h4><p>子查询就是将用来定义视图的 SELECT 语句 用于FROM 当中。<br>示例：</p>
+<pre><code class="sql">SELECT product_type, cnt_product
+FROM (SELECT product_type, count(*) AS cnt_product
+    FROM PRODUCT
+    GROUP BY product_type) AS ProductSum;</code></pre>
+<blockquote>
+<p>子查询作为内层查询会首先执行<br>多层嵌套查询应尽量避免<br>原则上子查询必须要设定名称</p>
+</blockquote>
+<h4 id="标量子查询-scalar-subquery"><a href="#标量子查询-scalar-subquery" class="headerlink" title="标量子查询(scalar subquery)  "></a>标量子查询(scalar subquery) <a name = "S23" > </a></h4><p><strong>标量子查询</strong> ：就是返回单一值的子查询。<br>示例： 选取出销售单价(sale_price)高于全部商品平均单价的商品</p>
+<pre><code class="sql">SELECT product_id, product_name, sale_price
+FROM PRODUCT
+WHERE SALE_PRICE &gt; (SELECT avg(sale_price) FROM PRODUCT); -- SELECT 子句是计算平均销量单价的标量子查询</code></pre>
+<h4 id="标量子查询的书写位置"><a href="#标量子查询的书写位置" class="headerlink" title="标量子查询的书写位置  "></a>标量子查询的书写位置 <a name = "S24" > </a></h4><p>能够使用常数 或者 列名的地方，无论是 SELECT 子句、GROUP BY子句、 HAVING 子句，还是 ORDER BY 子句，几乎所有的地方都可以使用。</p>
+<p>示例：</p>
+<pre><code class="sql">-- 示例1：在 SELECT中使用标量子查询
+SELECT product_id, product_name, sale_price,
+       (SELECT AVG(sale_price) FROM PRODUCT) AS avg_price
+    FROM PRODUCT;
+
+-- 示例2：在HAVING子句中使用标量子查询
+-- 选取出按照商品种类计算出的销售单价高于全部商品的平均销售单价的商品种类。
+SELECT product_type, AVG(SALE_PRICE)
+    FROM PRODUCT
+    GROUP BY product_type
+    HAVING AVG(SALE_PRICE) &gt; (SELECT AVG(sale_price) FROM PRODUCT);</code></pre>
+<blockquote>
+<p>注意事项：该子查询绝对不能返回多行结果</p>
+</blockquote>
+<h3 id="关联子查询"><a href="#关联子查询" class="headerlink" title="关联子查询"></a>关联子查询</h3><h4 id="普通子查询和关联子查询的区别"><a href="#普通子查询和关联子查询的区别" class="headerlink" title="普通子查询和关联子查询的区别  "></a>普通子查询和关联子查询的区别 <a name = "S31" > </a></h4><p>关联子查询用以解决分组为单位，销售单价与平均单价相比较的场景<br>示例：通过关联子查询按照商品种类对平均销售单价进行比较</p>
+<pre><code class="sql">SELECT product_type, product_name, sale_price
+    FROM PRODUCT AS P1
+    WHERE SALE_PRICE &gt; (SELECT AVG(sale_price)
+                            FROM PRODUCT AS P2
+                            WHERE P1.PRODUCT_TYPE = P2.PRODUCT_TYPE  -- 这句条件是关键
+                            GROUP BY P1.PRODUCT_TYPE);</code></pre>
+<blockquote>
+<p>在细分的组内进行比较时，需要使用关联子查询。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>关联子查询也是用来对集合进行切分的</li>
+<li>组合条件一定要写在子查询中。原因是违反了关联名称的作用域原则。</li>
+</ul>
+</blockquote>
+<p>下面这个写法就是错误的：</p>
+<pre><code class="sql">SELECT product_type, product_name, sale_price
+    FROM Product AS P1
+    WHERE P1.product_type = P2.product_type -- 关联条件不能移到子查询之外
+    AND sale_price &gt; (SELECT AVG(sale_price)
+                        FROM Product AS P2
+                        GROUP BY product_type);</code></pre>
+</font></div><div class="p-copyright"><blockquote><div class="p-copyright-author"><span class="p-copyright-key">本文作者：</span><span class="p-copytight-value"><a href="mailto:litreily@163.com">LiuY</a></span></div><div class="p-copyright-link"><span class="p-copyright-key">本文链接：</span><span class="p-copytight-value"><a href="/2020/01/25/SQL_05/">https://liuy0424.github.io/2020/01/25/SQL_05/</a></span></div><div class="p-copyright-note"><span class="p-copyright-key">版权声明：</span><span class="p-copytight-value">本博客所有文章除特殊声明外，均采用<a rel="nofollow" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0 </a>许可协议。转载请注明出处 <a href="https://liuy0424.github.io">LiuY的博客</a>！</span></div></blockquote></div></article><div class="p-info box"><span class="p-tags"><i class="fa fa-tag"></i><a href="/tags/SQL/">SQL</a></span></div></div><section class="p-ext"><div class="l-pager l-pager-dtl box"><a class="next" href="/2020/01/14/SQL_04/">SQL 基础 (04) &gt;</a></div><div id="valine-comment"><style type="text/css">.v * { color: #CECECE; }
+.v a { color: #0F9FB4; }
+.v a:hover { color: #216C73; }
+.v li { list-style: inherit; }
+.v .vwrap { border: 1px solid #223441; border-radius: 0; }
+.v .vwrap:hover { box-shadow: 0 0 6px 1px #223441; }
+.v .vbtn { border-radius: 0; color: #cecece; background: none; }
+.v .vlist .vcard .vh { border-bottom-color: #293D4E; }
+.v .vwrap .vheader .vinput { border-bottom-color: #223441; }
+.v .vwrap .vheader .vinput:focus { border-bottom-color: #339EB4; }
+.v code, .v pre,.v .vlist .vcard .vhead .vsys { background: #203240; }
+.v code, .v pre { color: #F0F0F0; font-size: 95%; }
+.v .vlist .vcard .vcontent.expand:before { background: linear-gradient(180deg,hsla(206,33%,19%,0),hsla(206,33%,19%,.9)); }
+.v .vlist .vcard .vcontent.expand:after { background: hsla(206,33%,19%,.9); }</style><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'fOfTBaNfKXDWrO1Fa1nMCD4L-MdYXbMMI',
+  appKey:'Vo5Ft3YohbkOGFLo0H6iI2ox',
+  lang: 'zh-cn',
+  placeholder:'ヾﾉ≧∀≦)o Come on, say something...',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></section><footer><p>Copyright © 2016 - 2020 <a href="/." rel="nofollow">LiuY</a> | <strong><a rel="nofollow" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></strong><br><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span></span> <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span></span> | Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a>Theme with<a rel="nofollow" target="_blank" href="https://github.com/litreily/snark-hexo"> snark.</a></p></footer></div></div></div><script type="text/javascript" src="/plugins/prettify/prettify.js"></script><script type="text/javascript" src="/js/search.js"></script><script type="text/javascript" src="/js/top.js"></script><script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+    search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"></body></html>
