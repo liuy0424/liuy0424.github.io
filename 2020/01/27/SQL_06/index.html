@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>SQL 基础 (06) | LiuY</title><link rel="stylesheet" type="text/css" href="/css/style.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.png"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="LiuY" type="application/atom+xml">
+</head><link rel="stylesheet" type="text/css" href="/css/customize.css"><link rel="stylesheet" type="text/css" href="/plugins/prettify/doxy.css"><script type="text/javascript" src="/js/ready.js" async></script><body><div class="mobile-head" id="mobile-head"><div class="navbar-icon"><span></span><span></span><span></span></div><div class="navbar-title"><a href="/">LITREILY</a></div><div class="navbar-search"><!--= show a circle here--></div></div><div class="h-wrapper" id="menu"><nav class="h-head box"><div class="m-hdimg"><a class="hdimg img" href="/"><img class="nofancybox" src="/img/profile.jpg" width="128" height="128"></a><h1 class="ttl"><a href="/">LiuY</a></h1></div><p class="m-desc">事闲勿荒，事繁勿慌，<br>取象于钱，外圆内方。</p><div class="m-nav"><ul><li><span class="dot">●</span><a href="/archives/">归档</a></li><li><span class="dot">●</span><a href="/categories/">分类</a></li><li><span class="dot">●</span><a href="/tags/">标签</a></li><li><span class="dot">●</span><a href="/about/">关于</a></li><li><span class="dot">●</span><a href="/atom.xml">RSS</a></li><li class="m-sch"><form class="form" id="j-formsch" method="get"><input class="txt" type="text" id="local-search-input" name="q" value="搜索" onfocus="if(this.value=='搜索'){this.value='';}" onblur="if(this.value==''){this.value='搜索';}"><input type="text" style="display:none;"></form></li></ul><div id="local-search-result"></div></div></nav></div><div id="back2Top"><a class="fa fa-arrow-up" title="Back to top" href="#"></a></div><div class="box" id="container"><div class="l-wrapper"><div class="l-content box"><div class="l-post l-post-art"><article class="p-art"><div class="p-header box"><h1 class="p-title">SQL 基础 (06)</h1><div class="p-info"><span class="p-date"><i class="fa fa-calendar"></i><a href="/2020/01/27/SQL_06/">2020-01-27</a></span><span class="p-category"><i class="fa fa-folder"></i><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span><span class="p-view" id="busuanzi_container_page_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_page_pv"></span></span></div></div><div class="p-content"><font face="微软雅黑">
+
+<h2 id="函数、谓词、CASE表达式"><a href="#函数、谓词、CASE表达式" class="headerlink" title="函数、谓词、CASE表达式"></a>函数、谓词、CASE表达式</h2><p><strong>目录：</strong></p>
+<ol>
+<li><p>各种各样的函数<br> 1.1  <a href="#S11">函数的种类</a><br> 1.2  <a href="#S12">算术函数</a><br> 1.3  <a href="#S13">字符串函数</a><br> 1.4  <a href="#S14">日期函数</a><br> 1.5  <a href="#S15">转换函数</a></p>
+</li>
+<li><p>谓词<br> 2.1  <a href="#S21">什么是谓词</a><br> 2.2  <a href="#S22">LIKE 谓词</a><br> 2.3  <a href="#S23">BETWEEN 谓词</a><br> 2.4  <a href="#S24">IS NULL、IS NOT NULL 谓词</a><br> 2.5  <a href="#S25">IN 谓词</a><br> 2.6  <a href="#S26">使用子查询作为IN谓词的参数</a><br> 2.7  <a href="#S27">EXIST 谓词</a></p>
+</li>
+<li><p>CASE 表达式<br> 3.1  <a href="#S31">什么是CASE </a><br> 3.2  <a href="#S32">CASE 表达式语法</a><br> 3.3  <a href="#S33">CASE 表达式的使用方法</a></p>
+</li>
+</ol>
+<h3 id="各种各亲的函数"><a href="#各种各亲的函数" class="headerlink" title="各种各亲的函数"></a>各种各亲的函数</h3><h4 id="函数的种类"><a href="#函数的种类" class="headerlink" title="函数的种类  "></a>函数的种类 <a name = "S11" > </a></h4><p><strong>函数</strong>：就是输入某一值得到相应输出结果的功能。<br>输入值称为<strong>参数</strong>, 输出值称为<strong>返回值</strong>。</p>
+<p>函数包括以下几类：</p>
+<ul>
+<li>算术函数</li>
+<li>字符串函数</li>
+<li>日期函数</li>
+<li>转换函数</li>
+<li>聚合函数</li>
+</ul>
+<h4 id="算术函数"><a href="#算术函数" class="headerlink" title="算术函数  "></a>算术函数 <a name = "S12" > </a></h4><p>算术函数包括：</p>
+<ul>
+<li>+、-、*、/</li>
+<li>ABS 函数 – 绝对值</li>
+<li>MOD 函数 – 求余</li>
+<li>ROUND 函数 – 四舍五入</li>
+</ul>
+<p>示例：</p>
+<pre><code class="sql">-- ABS
+SELECT m, ABS(m) as abs_col
+FROM SAMPLEMATH;
+
+-- MOD (SQL Server不支持这个函数，用 % 来代替)
+SELECT n,p, mod(n,p) AS mod_col
+FROM SAMPLEMATH;
+-- ROUND
+SELECT m,n,
+       round(m,n) AS round_col
+FROM SAMPLEMATH;</code></pre>
+<blockquote>
+<p>大多数函数 NULL的返回值都是NULL.</p>
+</blockquote>
+<h4 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数  "></a>字符串函数 <a name = "S13" > </a></h4><p>字符串函数包括：</p>
+<ul>
+<li>|| 函数 – 拼接字符串</li>
+<li>LENGTH 函数 – 字符串长度</li>
+<li>LOWER 函数 – 小写转换</li>
+<li>REPLACE 函数 – 字符串的替换</li>
+<li>SUBSTRING – 字符串的截取</li>
+<li>UPPER – 大写转换</li>
+</ul>
+<p>示例：</p>
+<pre><code class="sql">-- || 函数 （在SQL server 和 MySQL 中不支持）
+SELECT STR1, STR2,
+       STR1 || STR2 AS str_concat
+FROM SAMPLESTR;
+
+-- 三个字符串拼接
+SELECT STR1, STR2, STR3,
+       STR1 || STR2 || STR3 AS str_concat
+FROM SAMPLESTR;
+
+-- LENGTH (无法在SQL Server中使用，用 LEN 代替)
+SELECT STR1,
+       length(STR1) AS len_str
+FROM SAMPLESTR;
+
+-- LOWER
+SELECT STR1,
+       lower(STR1) AS low_str
+FROM SAMPLESTR;
+
+-- REPLACE
+SELECT STR1, STR2, STR3,
+       replace(str1, str2,str3) AS rep_str
+FROM SAMPLESTR;
+
+-- SUBSTRING
+SELECT STR1,
+       substring(STR1 FROM 3 FOR 2) AS sub_str
+FROM SAMPLESTR;
+
+-- UPPER
+SELECT STR1,
+       upper(STR1) AS up_str
+FROM SAMPLESTR
+WHERE str1 IN (&#39;ABC&#39;, &#39;aBC&#39;, &#39;abc&#39;, &#39;山田&#39;);</code></pre>
+<h4 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数  "></a>日期函数 <a name = "S14" > </a></h4><p>日期函数包括：</p>
+<ul>
+<li>CURRENT_DATE 函数 – 当前函数</li>
+<li>CURRENT_TIME – 当前时间</li>
+<li>CURRENT_TIMESTAMP – 当前日期和时间</li>
+<li>EXTRACT – 截取日期元素</li>
+</ul>
+<p>示例：</p>
+<pre><code class="sql">-- CURRENT_DATE
+SELECT current_date;
+
+-- CURRENT_TIME
+SELECT current_time;
+
+-- CURRENT_TIMESTAMP
+SELECT current_timestamp;
+
+-- EXTRACT
+SELECT CURRENT_TIMESTAMP,
+EXTRACT(YEAR FROM CURRENT_TIMESTAMP) AS year,
+EXTRACT(MONTH FROM CURRENT_TIMESTAMP) AS month,
+EXTRACT(DAY FROM CURRENT_TIMESTAMP) AS day,
+EXTRACT(HOUR FROM CURRENT_TIMESTAMP) AS hour,
+EXTRACT(MINUTE FROM CURRENT_TIMESTAMP) AS minute,
+EXTRACT(SECOND FROM CURRENT_TIMESTAMP) AS second;</code></pre>
+<h4 id="转换函数"><a href="#转换函数" class="headerlink" title="转换函数  "></a>转换函数 <a name = "S15" > </a></h4><p>转换函数包括：</p>
+<ul>
+<li>CAST – 类型转换</li>
+<li>COALESCE – 将 NULL 转换成其它值</li>
+</ul>
+<p>示例：</p>
+<pre><code class="sql">-- CAST
+-- 字符串类型转换成数值
+SELECT CAST(&#39;0001&#39; AS INTEGER) AS int_col;
+
+-- 字符串类型转换为日期类型
+SELECT CAST(&#39;2009-12-14&#39; AS DATE) AS date_col;
+
+-- COALESCE 
+-- 返回第一个非NULL 的值
+SELECT COALESCE(NULL, 1) AS col_1,
+        COALESCE(NULL, &#39;test&#39;, NULL) AS col_2,
+        COALESCE(NULL, NULL, &#39;2009-11-01&#39;) AS col_3;
+
+-- 将返回NULL 的值显示成字符串&quot;NULL&quot;
+SELECT COALESCE(str2, &#39;NULL&#39;)
+    FROM SAMPLESTR;</code></pre>
+<h3 id="谓词"><a href="#谓词" class="headerlink" title="谓词"></a>谓词</h3><h4 id="什么是谓词"><a href="#什么是谓词" class="headerlink" title="什么是谓词  "></a>什么是谓词 <a name = "S21" > </a></h4><p>谓词就是用于布尔值判断的一些关键词。返回值为 True/False/Unknown<br>谓词包括：</p>
+<ul>
+<li>LIKE – 部分匹配</li>
+<li>BETWEEN – 范围查询</li>
+<li>IS NULL、 IS NOT NULL – 判断是否为NULL.</li>
+<li>IN – 判断是否在集合范围内，是 OR 的简便用法</li>
+<li>EXISTS</li>
+</ul>
+<h4 id="LIKE-谓词"><a href="#LIKE-谓词" class="headerlink" title="LIKE 谓词  "></a>LIKE 谓词 <a name = "S22" > </a></h4><p>比较是否字符串部分一致。<br>部分一致包括：<strong>前方一致</strong>、<strong>中间一致</strong>、<strong>后方一致</strong><br>示例：</p>
+<pre><code class="sql">-- 前方一致
+SELECT * FROM SAMPLELIKE
+    WHERE STRCOL LIKE &#39;ddd%&#39;;
+
+-- 中间一致
+SELECT * FROM SAMPLELIKE
+    WHERE STRCOL LIKE &#39;%ddd%&#39;;
+
+-- 后方一致
+SELECT * FROM SAMPLELIKE
+    WHERE STRCOL LIKE &#39;%ddd&#39;;
+
+-- 使用_ 来匹配
+SELECT * FROM SAMPLELIKE
+    WHERE STRCOL LIKE &#39;abc__&#39;;      -- 匹配 abcdd
+
+-- 使用_ 来匹配
+SELECT * FROM SAMPLELIKE
+    WHERE STRCOL LIKE &#39;abc___&#39;;      -- 匹配 abcddd</code></pre>
+<blockquote>
+<p>LIKE 匹配时， % 匹配一个或多个字符， _ 匹配单个字符。</p>
+</blockquote>
+<h4 id="BETWEEN-谓词"><a href="#BETWEEN-谓词" class="headerlink" title="BETWEEN 谓词  "></a>BETWEEN 谓词 <a name = "S23" > </a></h4><p>BETWEEN 用于查询范围<br>示例： 选取销售单价为100~1000元的商品</p>
+<pre><code class="sql">SELECT product_name, sale_price
+FROM PRODUCT
+WHERE SALE_PRICE BETWEEN 100 AND 1000;</code></pre>
+<blockquote>
+<p>BETWEEN 的特点是结果中会包含两边的临界值。</p>
+</blockquote>
+<h4 id="IS-NULL、IS-NOT-NULL-谓词"><a href="#IS-NULL、IS-NOT-NULL-谓词" class="headerlink" title="IS NULL、IS NOT NULL 谓词  "></a>IS NULL、IS NOT NULL 谓词 <a name = "S24" > </a></h4><p>示例：</p>
+<pre><code class="sql">SELECT product_name, PURCHASE_PRICE
+FROM PRODUCT
+WHERE PURCHASE_PRICE IS NULL ;
+
+SELECT product_name, PURCHASE_PRICE
+FROM PRODUCT
+WHERE PURCHASE_PRICE IS NOT NULL ;</code></pre>
+<h4 id="IN-谓词"><a href="#IN-谓词" class="headerlink" title="IN 谓词  "></a>IN 谓词 <a name = "S25" > </a></h4><p>代替 OR 来简化 SQL 写法<br>示例：</p>
+<pre><code class="sql">-- 通过IN 来指定多个进货单价进行查询
+SELECT product_name, PURCHASE_PRICE
+FROM PRODUCT
+WHERE PURCHASE_PRICE IN (320, 500, 5000);
+
+-- 通过 NOT IN 来排除多个进货单价进行查询
+SELECT product_name, PURCHASE_PRICE
+FROM PRODUCT
+WHERE PURCHASE_PRICE NOT IN (320, 500, 5000);</code></pre>
+<blockquote>
+<p>如果想要排除某个范围，可以使用 NOT 来实现。<br>无论 IN 或者 NOT IN， NULL 值都不会被选取到。</p>
+</blockquote>
+<h4 id="使用子查询作为IN谓词的参数"><a href="#使用子查询作为IN谓词的参数" class="headerlink" title="使用子查询作为IN谓词的参数  "></a>使用子查询作为IN谓词的参数 <a name = "S26" > </a></h4><p>示例：取得“在大阪店销售的商品的销售单价”</p>
+<pre><code class="sql">SELECT product_name, sale_price
+FROM PRODUCT
+WHERE PRODUCT_ID IN (
+    SELECT product_id
+    FROM SHOPPRODUCT
+    WHERE SHOP_ID = &#39;000C&#39;
+    );</code></pre>
+<p>这种方式的好处是，IN 的范围可以是动态变化的。</p>
+<p>示例： NOT IN </p>
+<pre><code class="sql">FROM PRODUCT
+WHERE PRODUCT_ID NOT IN (
+    SELECT product_id
+    FROM SHOPPRODUCT
+    WHERE SHOP_ID = &#39;000C&#39;
+    );</code></pre>
+<p>这会返回除了0001、0002、0003之外的结果</p>
+<h4 id="EXIST-谓词"><a href="#EXIST-谓词" class="headerlink" title="EXIST 谓词  "></a>EXIST 谓词 <a name = "S27" > </a></h4><p>示例：选取出大阪店（000C）在售商品（product_id）的销售单价(sale_price)</p>
+<pre><code class="sql">SELECT product_name, sale_price
+FROM PRODUCT as P
+WHERE exists(SELECT *
+            FROM SHOPPRODUCT AS SP
+            WHERE sp.SHOP_ID = &#39;000C&#39;
+            AND sp.PRODUCT_ID = p.PRODUCT_ID);</code></pre>
+<blockquote>
+<p>EXISTS 是只有一个参数的谓词。该参数通常是一个关联子查询。<br>作为EXIST 参数的子查询中经常会使用 SELECT *。<br>示例： NOT EXIST</p>
+</blockquote>
+<pre><code class="sql">SELECT product_name, sale_price
+FROM PRODUCT as P
+WHERE NOT exists(SELECT *
+            FROM SHOPPRODUCT AS SP
+            WHERE sp.SHOP_ID = &#39;000A&#39;
+            AND sp.PRODUCT_ID = p.PRODUCT_ID);</code></pre>
+<p>EXIST/NOT EXIST 通常可以用 IN/NOT IN 来代替</p>
+<h3 id="CASE-表达式"><a href="#CASE-表达式" class="headerlink" title="CASE 表达式"></a>CASE 表达式</h3><h4 id="什么是CASE"><a href="#什么是CASE" class="headerlink" title="什么是CASE  "></a>什么是CASE <a name = "S31" > </a></h4><p>用于处理条件分支。</p>
+<h4 id="CASE-表达式语法"><a href="#CASE-表达式语法" class="headerlink" title="CASE 表达式语法  "></a>CASE 表达式语法 <a name = "S32" > </a></h4><p>语法：</p>
+<pre><code class="sql">CASE WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+    WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+    WHEN &lt;求值表达式&gt; THEN &lt;表达式&gt;
+    ...
+    ELSE &lt;表达式&gt;
+END</code></pre>
+<h4 id="CASE-表达式的使用方法"><a href="#CASE-表达式的使用方法" class="headerlink" title="CASE 表达式的使用方法 "></a>CASE 表达式的使用方法<a name = "S33" > </a></h4><p>示例：通过CASE表达式将A ～ C的字符串加入到商品种类当中.</p>
+<pre><code class="sql">SELECT product_name,
+       CASE WHEN product_type = &#39;衣服&#39; THEN &#39;A: &#39; || product_type
+            WHEN product_type = &#39;办公用品&#39; THEN &#39;B: &#39; || product_type
+            WHEN product_type = &#39;厨房用具&#39; THEN &#39;C: &#39; || product_type
+            ELSE NULL
+        END AS abc_product_type
+FROM PRODUCT;</code></pre>
+<blockquote>
+<p>虽然 CASE 表达式中的 ELSE 子句可以省略，但建议不要省略。<br>CASE 表达式中的 END 不能省略</p>
+</blockquote>
+<p>示例：使用CASE表达式进行行列转换</p>
+<pre><code class="sql">SELECT sum(CASE WHEN product_type = &#39;衣服&#39; THEN sale_price ELSE 0 END ) as sum_price_clothes,
+       sum(CASE WHEN product_type = &#39;厨房用具&#39; THEN sale_price ELSE 0 END ) as sum_price_kitchen,
+       sum(CASE WHEN product_type = &#39;办公用品&#39; THEN sale_price ELSE 0 END ) as sum_price_office
+FROM PRODUCT;</code></pre>
+</font></div><div class="p-copyright"><blockquote><div class="p-copyright-author"><span class="p-copyright-key">本文作者：</span><span class="p-copytight-value"><a href="mailto:litreily@163.com">LiuY</a></span></div><div class="p-copyright-link"><span class="p-copyright-key">本文链接：</span><span class="p-copytight-value"><a href="/2020/01/27/SQL_06/">https://liuy0424.github.io/2020/01/27/SQL_06/</a></span></div><div class="p-copyright-note"><span class="p-copyright-key">版权声明：</span><span class="p-copytight-value">本博客所有文章除特殊声明外，均采用<a rel="nofollow" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/"> CC BY-NC 4.0 </a>许可协议。转载请注明出处 <a href="https://liuy0424.github.io">LiuY的博客</a>！</span></div></blockquote></div></article><div class="p-info box"><span class="p-tags"><i class="fa fa-tag"></i><a href="/tags/SQL/">SQL</a></span></div></div><section class="p-ext"><div class="l-pager l-pager-dtl box"><a class="next" href="/2020/01/25/SQL_05/">SQL 基础 (05) &gt;</a></div><div id="valine-comment"><style type="text/css">.v * { color: #CECECE; }
+.v a { color: #0F9FB4; }
+.v a:hover { color: #216C73; }
+.v li { list-style: inherit; }
+.v .vwrap { border: 1px solid #223441; border-radius: 0; }
+.v .vwrap:hover { box-shadow: 0 0 6px 1px #223441; }
+.v .vbtn { border-radius: 0; color: #cecece; background: none; }
+.v .vlist .vcard .vh { border-bottom-color: #293D4E; }
+.v .vwrap .vheader .vinput { border-bottom-color: #223441; }
+.v .vwrap .vheader .vinput:focus { border-bottom-color: #339EB4; }
+.v code, .v pre,.v .vlist .vcard .vhead .vsys { background: #203240; }
+.v code, .v pre { color: #F0F0F0; font-size: 95%; }
+.v .vlist .vcard .vcontent.expand:before { background: linear-gradient(180deg,hsla(206,33%,19%,0),hsla(206,33%,19%,.9)); }
+.v .vlist .vcard .vcontent.expand:after { background: hsla(206,33%,19%,.9); }</style><div id="vcomment"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'fOfTBaNfKXDWrO1Fa1nMCD4L-MdYXbMMI',
+  appKey:'Vo5Ft3YohbkOGFLo0H6iI2ox',
+  lang: 'zh-cn',
+  placeholder:'ヾﾉ≧∀≦)o Come on, say something...',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10'
+})</script></div></section><footer><p>Copyright © 2016 - 2020 <a href="/." rel="nofollow">LiuY</a> | <strong><a rel="nofollow" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></strong><br><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span></span> <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span></span> | Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a>Theme with<a rel="nofollow" target="_blank" href="https://github.com/litreily/snark-hexo"> snark.</a></p></footer></div></div></div><script type="text/javascript" src="/plugins/prettify/prettify.js"></script><script type="text/javascript" src="/js/search.js"></script><script type="text/javascript" src="/js/top.js"></script><script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+    search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.1" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"></body></html>
